@@ -24,14 +24,14 @@ public class UserController {
 
     @GetMapping()
     public String showAllUsers(Model model) {
-        model.addAttribute("users", userService.findAll());
+        model.addAttribute("users", userService.showAllUsers());
         return "showAllUsers";
     }
 
     @GetMapping("/{id}")
     public String showUser(HttpServletRequest request, Model model) {
         String id = request.getRequestURI().split("/")[2];
-        model.addAttribute("user", userService.findOne(Integer.parseInt(id)));
+        model.addAttribute("user", userService.showUserById(Integer.parseInt(id)));
         return "showUserById";
     }
 
@@ -46,14 +46,14 @@ public class UserController {
         if (bindingResult.hasErrors())
             return "newUser";
 
-        userService.save(user);
+        userService.saveUser(user);
         return "redirect:/users";
     }
 
     @GetMapping("/{id}/edit")
     public String editUser(HttpServletRequest request, Model model) {
         String id = request.getRequestURI().split("/")[2];
-        model.addAttribute("user", userService.findOne(Integer.parseInt(id)));
+        model.addAttribute("user", userService.showUserById(Integer.parseInt(id)));
         return "editUser";
     }
 
@@ -65,14 +65,14 @@ public class UserController {
             return "editUser";
 
         String id = request.getRequestURI().split("/")[2];
-        userService.update(Integer.parseInt(id), user);
+        userService.updateUser(Integer.parseInt(id), user);
         return "redirect:/users";
     }
 
     @PostMapping(value = "/{id}", params = "action=del")
     public String deleteUser(HttpServletRequest request) {
         String id = request.getRequestURI().split("/")[2];
-        userService.delete(Integer.parseInt(id));
+        userService.deleteUser(Integer.parseInt(id));
         return "redirect:/users";
     }
 }

@@ -1,10 +1,10 @@
-package Konst.web_app.services;
+package Konst.web_app.dao;
 
 import Konst.web_app.model.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserDao {
 
     List<User> showAllUsers();
 
@@ -14,5 +14,5 @@ public interface UserService {
 
     void updateUser(int id, User user);
 
-    void deleteUser(int id);
+    void deleteUserById(int id);
 }
